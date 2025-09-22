@@ -55,6 +55,6 @@ jobs:
       uses: docker/build-push-action@v6
       with:
         context: ./practice_projects/project-4
-        file: Dockerfile
+        file: ./Dockerfile
         push: true
         tags: ${{ secrets.DOCKERHUB_USER }}/app:${{ inputs.version }}
