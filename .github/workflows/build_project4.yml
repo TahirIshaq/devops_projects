@@ -57,4 +57,4 @@ jobs:
         context: ./practice_projects/project-4
         file: ./practice_projects/project-4/Dockerfile
         push: true
-        tags: ${{ secrets.DOCKERHUB_USER }}/app:${{ inputs.version }}
+        tags: ${{ secrets.DOCKERHUB_USER }}/${{ inputs.name }}:${{ inputs.version }}
