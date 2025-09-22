@@ -60,6 +60,7 @@ jobs:
         tags: ${{ secrets.DOCKERHUB_USER }}/${{ inputs.name }}:${{ inputs.version }}
   
   deploy:
+    needs: build_push
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     # Use dockerhun environment
