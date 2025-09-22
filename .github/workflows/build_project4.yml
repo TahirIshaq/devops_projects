@@ -1,6 +1,6 @@
 # This is a basic workflow that is manually triggered
 
-name: Build and Push Dockerfile
+name: Build, Push and deploy Dockerfile
 
 # Controls when the action will run. Workflow runs when manually triggered using the UI
 # or API.
@@ -58,3 +58,19 @@ jobs:
         file: ./practice_projects/project-4/Dockerfile
         push: true
         tags: ${{ secrets.DOCKERHUB_USER }}/${{ inputs.name }}:${{ inputs.version }}
+  
+  deploy:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    # Use dockerhun environment
+    environment: dockerhub
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    - name: Deploy the application
+      uses: appleboy/ssh-action@v1.2.0
+      with:
+        host: ${{ secrets.VM_IP }}
+        username: ${{ secrets.VM_USER }}
+        key: ${{ secrets.HELLOWORLD_PEM }}
+        script: docker run -d -p 80:80 ${{ secrets.DOCKERHUB_USER }}/${{ inputs.name }}:${{ inputs.version }}
